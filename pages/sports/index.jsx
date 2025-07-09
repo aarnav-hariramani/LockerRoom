@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 
 export default function SportsPage() {
   const router = useRouter();
-  const sports = ['Soccer', 'Basketball', 'Lacrosse', 'Tennis']; // Replace with actual list
+  const sports = ['Soccer', 'Basketball', 'Lacrosse', 'Tennis']; 
 
   return (
     <div className="p-4">

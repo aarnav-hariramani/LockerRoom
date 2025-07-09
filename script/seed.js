@@ -21,6 +21,7 @@ const Athlete = mongoose.model('Athlete', athleteSchema);
 
 const athletes = [
   { sport: 'basketball', major: 'quantative finance', name: 'harm' },
+  {sport: 'basketball', major: 'quantative finance', name: 'Aarnav'},
 ];
 
 async function seedDB() {
