@@ -27,10 +27,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/sports/[sports]": [
+    "/sports": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/sports/[sports].js"
+      "static/chunks/pages/sports.js"
     ]
   },
   "ampFirstPages": []

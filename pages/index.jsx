@@ -1,7 +1,4 @@
 import Slideshow from '../components/Slideshow';
-import SearchSidebar from '../components/SearchSidebar';
-import AthleteCard from '../components/AthleteCard';
-import { useEffect, useState } from 'react';
 
 export default function Home() {
   const slides = [
@@ -10,41 +7,28 @@ export default function Home() {
     <div key="3" className="text-4xl font-bold text-center">Showcase your profile</div>,
   ];
 
-  const [filters, setFilters] = useState({ sport: '', major: '', name: '' });
-  const [results, setResults] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const qs = new URLSearchParams(filters);
-      const res = await fetch(`/api/athletes?${qs}`);
-      const data = await res.json();
-      setResults(data);
-    };
-    fetchData();
-  }, [filters]);
-
   return (
-    <main className="p-6">
+    <main className="p-6" id="top">
       <h1 className="text-5xl font-extrabold text-center mb-8">Flock</h1>
 
       <div className="mb-12">
         <Slideshow slides={slides} />
       </div>
 
-      <section className="text-center mb-12">
+      {/* Our Mission Section */}
+      <section id="mission" className="text-center mb-12 scroll-mt-24">
         <h2 className="text-2xl font-semibold mb-2">Our Mission</h2>
         <p className="text-gray-600 max-w-xl mx-auto">
           We help athletes transition after college through connections and opportunities.
         </p>
       </section>
 
-      <section className="flex mt-12">
-        <SearchSidebar filters={filters} setFilters={setFilters} />
-        <div className="flex-grow grid grid-cols-2 gap-4 p-4">
-          {results.map((a) => (
-            <AthleteCard key={a._id} athlete={a} />
-          ))}
-        </div>
+      {/* Contact Us Section */}
+      <section id="contact" className="text-center mt-24 scroll-mt-24">
+        <h2 className="text-2xl font-semibold mb-2">Contact Us</h2>
+        <p className="text-gray-600 max-w-xl mx-auto">
+          Have questions or want to connect? Reach out to us at <a href="mailto:contact@stevensflock.com" className="text-blue-600 underline">contact@stevensflock.com</a>.
+        </p>
       </section>
     </main>
   );

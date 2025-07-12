@@ -1,53 +1,58 @@
+import React from 'react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 export default function Navbar() {
-  const [showDropdown, setShowDropdown] = useState(false);
-
-  const sportsList = [
-    'Soccer',
-    'Basketball',
-    'Lacrosse',
-    'Tennis',
-    'Track',
-    'Swimming',
-    'Volleyball',
-    'Wrestling',
-  ];
+  const router = useRouter();
 
   return (
-    <nav className="flex gap-6 p-4 shadow-md bg-white relative z-10">
-      {/* Home */}
-      <Link href="/" className="hover:underline cursor-pointer py-2 px-1">
-        Home
-      </Link>
+    <nav className="bg-white shadow-md py-4 px-8 flex justify-between items-center">
+      {/* Logo */}
+      <div className="text-2xl font-bold">Stevens Flock</div>
 
-      {/* History */}
-      <Link href="/history" className="hover:underline cursor-pointer py-2 px-1">
-        History
-      </Link>
-
-      {/* Sports Dropdown */}
-      <div
-        className="relative py-2 px-1"
-        onMouseEnter={() => setShowDropdown(true)}
-        onMouseLeave={() => setShowDropdown(false)}
-      >
-        <span className="hover:underline cursor-pointer">Sports ▾</span>
-
-        {showDropdown && (
-          <div className="absolute left-0 top-full bg-white shadow-lg border rounded mt-1 py-2 w-48 z-20">
-            {sportsList.map((sport) => (
-              <Link
-                key={sport}
-                href={`/sports/${sport.toLowerCase()}`}
-                className="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap"
-              >
-                {sport}
-              </Link>
-            ))}
+      {/* Navigation */}
+      <div className="flex space-x-6 items-center relative">
+        {/* HOME Dropdown */}
+        <div className="relative group">
+          <Link href="/" className="hover:text-blue-600 text-blue-700">
+            Home ▾
+          </Link>
+          <div className="absolute bg-white border rounded shadow-lg top-full mt-2 py-2 w-40 z-10 hidden group-hover:block">
+            <a
+              href={router.pathname === '/' ? "#mission" : "/#mission"}
+              className="block px-4 py-2 hover:bg-gray-100"
+            >
+              Our Mission
+            </a>
+            <a
+              href={router.pathname === '/' ? "#contact" : "/#contact"}
+              className="block px-4 py-2 hover:bg-gray-100"
+            >
+              Contact Us
+            </a>
           </div>
-        )}
+        </div>
+
+        {/* SPORTS Dropdown */}
+        <div className="relative group">
+          <button className="hover:text-blue-600">Sports ▾</button>
+          <div className="absolute bg-white border rounded shadow-lg top-full mt-2 py-2 w-40 z-10 hidden group-hover:block">
+            <Link href="/sports?type=basketball" className="block px-4 py-2 hover:bg-gray-100">
+              Basketball
+            </Link>
+            <Link href="/sports?type=soccer" className="block px-4 py-2 hover:bg-gray-100">
+              Soccer
+            </Link>
+            <Link href="/sports?type=swimming" className="block px-4 py-2 hover:bg-gray-100">
+              Swimming
+            </Link>
+          </div>
+        </div>
+
+        {/* PROFILE */}
+        <Link href="/profile" className="hover:text-blue-600">
+          Profile
+        </Link>
       </div>
     </nav>
   );
