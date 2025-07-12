@@ -2,7 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+  "/sports/[sports]": "pages/sports/[sports].js",
   "/": "pages/index.js",
-  "/sports": "pages/sports.js",
-  "/sports/[sports]": "pages/sports/[sports].js"
+  "/sports": "pages/sports.js"
 }

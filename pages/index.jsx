@@ -27,7 +27,7 @@ export default function Home() {
       <section id="contact" className="text-center mt-24 scroll-mt-24">
         <h2 className="text-2xl font-semibold mb-2">Contact Us</h2>
         <p className="text-gray-600 max-w-xl mx-auto">
-          Have questions or want to connect? Reach out to us at <a href="mailto:contact@stevensflock.com" className="text-blue-600 underline">contact@stevensflock.com</a>.
+          have questions? reach out to us at <a href="mailto:contact@stevensflock.com" className="text-blue-600 underline">email here </a>.
         </p>
       </section>
     </main>
