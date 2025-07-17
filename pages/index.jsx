@@ -19,7 +19,17 @@ export default function Home() {
       <section id="mission" className="text-center mb-12 scroll-mt-24">
         <h2 className="text-2xl font-semibold mb-2">Our Mission</h2>
         <p className="text-gray-600 max-w-xl mx-auto">
-          We help athletes transition after college through connections and opportunities.
+          We help athletes transition after college through connections and opportunities.<br></br>
+          We help athletes transition after college through connections and opportunities.<br></br>
+          We help athletes transition after college through connections and opportunities.<br></br>
+          We help athletes transition after college through connections and opportunities.<br></br>
+          We help athletes transition after college through connections and opportunities.<br></br>
+          We help athletes transition after college through connections and opportunities.<br></br>
+          We help athletes transition after college through connections and opportunities.<br></br>
+          We help athletes transition after college through connections and opportunities.<br></br>
+          We help athletes transition after college through connections and opportunities.<br></br>
+          
+
         </p>
       </section>
 

@@ -1,13 +1,13 @@
 // /pages/sports/[sports].jsx
 
 import dbConnect from '../../lib/db';
-import Athlete from '../../models/Athlete';
+import User from '../../models/User';
 
 export async function getServerSideProps(context) {
   const { sports } = context.params;
 
   await dbConnect();
-  const athletes = await Athlete.find({ sport: sports }).lean();
+  const athletes = await User.find({ sport: sports }).lean();
 
   const groupedByMajor = athletes.reduce((acc, athlete) => {
     if (!acc[athlete.major]) acc[athlete.major] = [];
