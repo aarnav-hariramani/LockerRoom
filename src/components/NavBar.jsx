@@ -1,12 +1,16 @@
 import React from 'react'
-import { Home as HomeIcon, LogIn, PlusSquare } from 'lucide-react'
+import { Home as HomeIcon, LogIn, PlusSquare, Images } from 'lucide-react'
 
-export default function NavBar({ onShowComposer, onShowLogin }) {
+export default function NavBar({ onGoPosts, onShowComposer, onShowLogin }) {
   return (
     <nav className="hidden md:flex items-center gap-6 text-sm">
       <button className="inline-flex items-center gap-2 text-white/90 hover:text-white transition">
         <HomeIcon className="h-4 w-4" />
         <span>Home</span>
+      </button>
+      <button onClick={onGoPosts} className="inline-flex items-center gap-2 text-white/90 hover:text-white transition">
+        <Images className="h-4 w-4" />
+        <span>Posts</span>
       </button>
       <button onClick={onShowComposer} className="inline-flex items-center gap-2 rounded-xl px-3 py-1.5 bg-white/10 hover:bg-white/15 transition">
         <PlusSquare className="h-4 w-4" />

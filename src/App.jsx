@@ -5,12 +5,14 @@ import NavBar from './components/NavBar.jsx'
 import Composer from './components/Composer.jsx'
 import PostCard from './components/PostCard.jsx'
 import LoginModal from './components/LoginModal.jsx'
+import PostsOverlay from './components/PostsOverlay.jsx'
 import { mockAthletes, mockPosts } from './mockData.js'
 
 export default function App() {
   const [introDone, setIntroDone] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
   const [showComposer, setShowComposer] = useState(false)
+  const [showPosts, setShowPosts] = useState(false)
 
   useEffect(() => {
     const seen = sessionStorage.getItem('lockerroom_intro_done')
@@ -43,7 +45,7 @@ export default function App() {
             </div>
             <span className="text-xl font-extrabold tracking-tight">Locker <span className="text-amber-300">Room</span></span>
           </div>
-          <NavBar onShowComposer={() => setShowComposer(v => !v)} onShowLogin={() => setShowLogin(true)} />
+          <NavBar onGoPosts={() => setShowPosts(true)} onShowComposer={() => setShowComposer(v => !v)} onShowLogin={() => setShowLogin(true)} />
         </div>
       </header>
 
@@ -93,7 +95,12 @@ export default function App() {
         {/* Feed */}
         <section id="feed" className="mt-10 grid md:grid-cols-[2fr_1fr] gap-6">
           <div className="space-y-4">
-            {mockPosts.map((p) => <PostCard key={p.id} post={p} />)}
+            {mockPosts.slice(0,3).map((p) => <PostCard key={p.id} post={p} />)}
+            <div className="pt-2">
+              <button onClick={() => setShowPosts(true)} className="w-full mt-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white/90">
+                See more posts
+              </button>
+            </div>
           </div>
           <aside className="space-y-4">
             <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-5">
@@ -118,7 +125,15 @@ export default function App() {
 
       <LoginModal open={showLogin} onClose={() => setShowLogin(false)} />
 
-      <footer className="mt-20 border-t border-white/10 py-8 text-center text-white/50 text-sm">
+      
+      {showPosts && (
+        <PostsOverlay
+          posts={mockPosts}
+          onClose={() => setShowPosts(false)}
+          onShowComposer={() => setShowComposer(true)}
+        />
+      )}
+<footer className="mt-20 border-t border-white/10 py-8 text-center text-white/50 text-sm">
         © {new Date().getFullYear()} Locker Room
       </footer>
     </div>
