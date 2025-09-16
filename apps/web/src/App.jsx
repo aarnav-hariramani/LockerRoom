@@ -67,15 +67,17 @@ export default function App() {
                 The Professional Network for <span className="text-amber-300">Athletes</span>
               </h1>
               <p className="mt-4 text-white/80 md:text-lg max-w-2xl">
-                Showcase stats, share highlights, get discovered by coaches and brands. Build your locker, grow your network, some corny ass third part here.
+                Showcase stats, share highlights, get discovered by coaches and brands. Build your locker, grow your network, and unlock opportunities at the next level.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <button
-                  onClick={() => (window.location.href = '/signup')}
-                  className="rounded-2xl px-5 py-3 bg-amber-300 text-black font-semibold hover:bg-amber-200 transition"
-                >
-                  Get Started
-                </button>
+                                {!(me || localStorage.getItem('lr_token')) && (
+                  <button
+                    onClick={() => (window.location.href = '/signup')}
+                    className="rounded-2xl px-5 py-3 bg-amber-300 text-black font-semibold hover:bg-amber-200 transition"
+                  >
+                    Get Started
+                  </button>
+                )}
                 <button
                   onClick={() => document.getElementById('feed')?.scrollIntoView({ behavior: 'smooth' })}
                   className="rounded-2xl px-5 py-3 bg-white/10 hover:bg-white/15"
@@ -86,7 +88,7 @@ export default function App() {
               <div className="mt-8 flex items-center gap-6 text-white/60 text-sm">
                 <span className="inline-flex items-center gap-2"><Dumbbell className="h-4 w-4" /> Verified athlete profiles</span>
                 <span className="inline-flex items-center gap-2"><MessageCircle className="h-4 w-4" /> Recruiter messaging</span>
-                <span className="inline-flex items-center gap-2"><Heart className="h-4 w-4" /> NIL-ready portfolios (we can delete this)</span>
+                <span className="inline-flex items-center gap-2"><Heart className="h-4 w-4" /> NIL-ready portfolios</span>
               </div>
             </div>
 
@@ -138,7 +140,8 @@ export default function App() {
               ))}
               <div className="pt-2">
                 <button
-                  onClick={() => setShowPosts(true)}
+                  onClick={() => (window.location.href = '/posts')}
+
                   className="w-full mt-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white/90"
                 >
                   See more posts
