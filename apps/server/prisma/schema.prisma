@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  username     String   @unique
+  passwordHash String
+  name         String
+  avatarUrl    String?
+  sport        String?
+  position     String?
+  bio          String?
+
+  posts        Post[]
+  comments     Comment[]
+  likes        Like[]
+  following    Follow[] @relation("following")
+  followers    Follow[] @relation("followers")
+  conversations ConversationParticipant[]
+  messages     Message[]
+  profileViews ProfileView[] @relation("viewsMade")
+  viewedBy     ProfileView[] @relation("viewsReceived")
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  text      String
+  mediaUrl  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  comments  Comment[]
+  likes     Like[]
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id])
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  content   String
+  createdAt DateTime @default(now())
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([postId, userId])
+}
+
+model Follow {
+  id           String   @id @default(cuid())
+  followerId   String
+  followingId  String
+  follower     User     @relation("following", fields: [followerId], references: [id])
+  following    User     @relation("followers", fields: [followingId], references: [id])
+  createdAt    DateTime @default(now())
+
+  @@unique([followerId, followingId])
+}
+
+model Conversation {
+  id             String   @id @default(cuid())
+  isGroup        Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  participants   ConversationParticipant[]
+  messages       Message[]
+}
+
+model ConversationParticipant {
+  id              String   @id @default(cuid())
+  conversationId  String
+  userId          String
+  conversation    Conversation @relation(fields: [conversationId], references: [id])
+  user            User         @relation(fields: [userId], references: [id])
+
+  @@unique([conversationId, userId])
+}
+
+model Message {
+  id              String   @id @default(cuid())
+  conversationId  String
+  conversation    Conversation @relation(fields: [conversationId], references: [id])
+  senderId        String
+  sender          User         @relation(fields: [senderId], references: [id])
+  content         String
+  createdAt       DateTime @default(now())
+  readAt          DateTime?
+}
+
+model ProfileView {
+  id        String   @id @default(cuid())
+  viewerId  String
+  viewedId  String
+  viewer    User     @relation("viewsMade", fields: [viewerId], references: [id])
+  viewed    User     @relation("viewsReceived", fields: [viewedId], references: [id])
+  createdAt DateTime @default(now())
+}

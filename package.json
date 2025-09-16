@@ -1,24 +1,14 @@
 {
-  "name": "locker-room",
+  "name": "lockerroom",
   "private": true,
-  "version": "0.0.1",
-  "type": "module",
+  "version": "1.0.0",
+  "workspaces": [
+    "apps/web",
+    "apps/server"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "framer-motion": "^11.0.0",
-    "lucide-react": "^0.469.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.1",
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.44",
-    "tailwindcss": "^3.4.10",
-    "vite": "^5.4.2"
+    "dev": "npm run -w apps/server dev & npm run -w apps/web dev",
+    "build": "npm -w apps/server run build && npm -w apps/web run build",
+    "start": "npm -w apps/server run start & npm -w apps/web run preview"
   }
 }

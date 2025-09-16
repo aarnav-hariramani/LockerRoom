@@ -1,0 +1,1 @@
+console.log('No seed by default. Add users/posts if needed.')
