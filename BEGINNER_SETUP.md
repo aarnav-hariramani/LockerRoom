@@ -1,6 +1,5 @@
-# 🏟️ LockerRoom — Beginner Setup Guide
-
-Welcome! 🎉  
+# LockerRoom — Beginner Setup Guide
+ 
 This guide is for Harm, to run LockerRoom locally.
 
 ---
