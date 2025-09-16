@@ -1,7 +1,4 @@
-# LockerRoom — Full‑Stack (Keep the exact homepage design)
-
-This package turns your static LockerRoom UI into a full backend‑integrated platform while **keeping the same homepage**. 
-Mock data is removed and replaced with live API calls. Auth, posts, likes, comments, follows, DMs (Socket.IO), feed & trending algorithms are all wired up.
+# LockerRoom — Full‑Stack
 
 ## What's inside
 - `apps/server` – Express + Prisma + PostgreSQL + Socket.IO
@@ -29,11 +26,6 @@ npm run dev
 ```
 
 Open http://localhost:5173
-
-## Auth flow + locker‑room animation
-- The FIFA/locker animation no longer plays on initial load.
-- It displays **only after** a successful **signup or login**.
-- Click **Get Started** → **Sign up / Sign in** modal → upon success the animation plays once.
 
 ## Empty states
 - Home feed shows nothing until real users post.
