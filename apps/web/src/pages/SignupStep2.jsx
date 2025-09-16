@@ -34,7 +34,7 @@ export default function SignupStep2(){
       if(res.data.user) setUser(res.data.user)
       sessionStorage.setItem('lr_auth_just_now', '1')
       window.dispatchEvent(new Event('lr-auth-changed'))
-      navigate('/')
+      window.location.href = '/'
     }catch(err){
       setError(err?.response?.data?.error || 'Could not create account')
     }finally{

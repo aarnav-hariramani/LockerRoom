@@ -26,7 +26,7 @@ export default function LoginPage(){
       sessionStorage.setItem('lr_auth_just_now', '1')
       // notify same tab so NavBar flips instantly
       window.dispatchEvent(new Event('lr-auth-changed'))
-      navigate('/')
+      window.location.href = '/'
     }catch(err){
       setError(err?.response?.data?.error || 'Invalid credentials')
     }finally{

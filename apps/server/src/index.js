@@ -16,7 +16,8 @@ const io = new Server(server, {
 })
 
 app.use(cors({ origin: process.env.CORS_ORIGIN?.split(',') || '*', credentials: true }))
-app.use(express.json())
+app.use(express.json({ limit: '10mb' }))
+app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 
 const PORT = process.env.PORT || 4000
 const JWT_SECRET = process.env.JWT_SECRET || 'devsecret'
