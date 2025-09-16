@@ -4,6 +4,9 @@ import PostComposeModal from '../components/PostComposeModal.jsx'
 import api from '../utils/api.js'
 import { getAvatar } from '../utils/auth.js'
 
+/**
+ * Enforce dark page background to match the site.
+ */
 export default function PostsPage(){
   const [posts, setPosts] = useState(null)
   const [avatar, setAvatar] = useState(getAvatar() || 'https://i.pravatar.cc/100')
@@ -15,28 +18,28 @@ export default function PostsPage(){
   }, [])
 
   useEffect(() => {
-    const run = async () => {
+    async function load(){
       try{
-        const res = await api.get('/feed?limit=50')
-        setPosts(res.data.posts || [])
-      }catch(e){
+        const res = await api.get('/feed?limit=20')
+        setPosts(res.data?.posts || [])
+      }catch{
         setPosts([])
       }
     }
-    run()
+    load()
   }, [])
 
-  const closeModal = () => {
+  function closeModal(){
     setOpen(false)
     const url = new URL(window.location.href)
     url.searchParams.delete('compose')
-    window.history.replaceState({}, '', url.pathname + url.search)
+    window.history.replaceState(null, '', url)
   }
 
   return (
-    <div className="min-h-screen w-full bg-neutral-950 text-white">
-      <div className="mx-auto max-w-3xl px-4 pt-24 pb-16">
-        <h1 className="text-2xl font-bold">Posts</h1>
+    <div className="min-h-[100dvh] bg-neutral-950 text-white">
+      <div className="mx-auto max-w-5xl px-4 py-6">
+        <h1 className="text-2xl font-extrabold">Posts</h1>
 
         {!posts && <div className="mt-6 text-white/70">Loading feed…</div>}
         {posts && posts.length === 0 && <div className="mt-6 text-white/70">No posts yet.</div>}

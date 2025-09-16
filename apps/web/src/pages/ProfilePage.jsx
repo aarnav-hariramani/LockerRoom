@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { getToken, getUser, getAvatar } from '../utils/auth.js'
 
+/**
+ * Make the profile page match the same dark theme.
+ */
 export default function ProfilePage(){
   const [authed, setAuthed] = useState(!!getToken())
   const [user, setUser] = useState(getUser() || {})
@@ -13,25 +16,37 @@ export default function ProfilePage(){
       if(e.key === 'lr_user') try { setUser(JSON.parse(e.newValue || '{}')) } catch {}
       if(e.key === 'lr_avatar') setAvatar(e.newValue || '')
     }
+    const onAuth = () => {
+      setAuthed(!!getToken())
+      setUser(getUser() || {})
+      setAvatar(getAvatar() || '')
+    }
     window.addEventListener('storage', onStorage)
-    return () => window.removeEventListener('storage', onStorage)
+    window.addEventListener('lr-auth-changed', onAuth)
+    return () => {
+      window.removeEventListener('storage', onStorage)
+      window.removeEventListener('lr-auth-changed', onAuth)
+    }
   }, [])
 
   if(!authed) return <Navigate to="/login" replace />
 
+  const initials = (user?.name || 'A A').split(' ').slice(0,2).map(n => n[0] || '').join('').toUpperCase()
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-950">
-      <div className="max-w-3xl mx-auto px-4 pt-24 pb-16">
+    <div className="min-h-[100dvh] bg-neutral-950 text-white">
+      <div className="mx-auto max-w-5xl px-4 py-8">
         <div className="flex items-center gap-4">
-          <img src={avatar || 'https://api.dicebear.com/9.x/initials/svg?seed=' + (user?.name || 'LR')}
-               alt="avatar" className="h-16 w-16 rounded-full ring-2 ring-white/10" />
+          <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-amber-200 via-yellow-400 to-orange-500 grid place-items-center text-black text-xl font-black overflow-hidden">
+            {avatar ? <img src={avatar} alt="" className="h-full w-full object-cover rounded-2xl" /> : initials}
+          </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">{user?.name || 'Your Profile'}</h1>
-            <p className="text-white/60">@{user?.username || 'username'}</p>
+            <h1 className="text-2xl font-extrabold">{user?.name || 'Your Profile'}</h1>
+            <div className="text-white/60">@{user?.username || 'username'}</div>
           </div>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
           <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
             <h2 className="text-white/80 font-semibold mb-2">Sport</h2>
             <div className="text-white/90">{user?.sport || '—'}</div>
